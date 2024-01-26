@@ -1,61 +1,61 @@
+// Problem: Collect and remove leaf nodes of a binary tree in a level-by-level manner.
+// Author: Roshan Adhikari
+
 import java.util.ArrayList;
 import java.util.List;
 
-// Author: Roshan Adhikari
-// Question: How can we collect all the leaf nodes of a binary tree?
-
 public class BinaryTreeLeavesCollector {
-
-    // Definition for a binary tree node with a constructor to set children.
-    public static class TreeNode {
+    static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
 
-        // Constructor to create a tree node with specified value, left child, and right child.
-        TreeNode(int x, TreeNode left, TreeNode right) {
-            this.val = x;
-            this.left = left;
-            this.right = right;
+        TreeNode(int x) {
+            val = x;
         }
     }
 
-    // Method to collect leaves of a binary tree.
-    public List<Integer> collectLeaves(TreeNode root) {
-        List<Integer> leaves = new ArrayList<>();
-        collectLeavesHelper(root, leaves);
-        return leaves;
+    public List<List<Integer>> collectLeaves(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        while (root != null) {
+            List<Integer> leaves = new ArrayList<>();
+            root = removeLeaves(root, leaves);
+            result.add(leaves);
+        }
+        return result;
     }
 
-    // Helper method to perform DFS and collect leaves.
-    private void collectLeavesHelper(TreeNode node, List<Integer> leaves) {
-        if (node == null) {
-            return;
-        }
+    private TreeNode removeLeaves(TreeNode node, List<Integer> leaves) {
+        if (node == null) return null;
 
-        // Check if the node is a leaf node.
+        // Check if the node is a leaf node
         if (node.left == null && node.right == null) {
-            leaves.add(node.val); // Add leaf value to the list.
+            leaves.add(node.val); // Add leaf value to the list
+            return null; // Remove the leaf node
         }
 
-        // Recursively collect leaves from left and right subtrees.
-        collectLeavesHelper(node.left, leaves);
-        collectLeavesHelper(node.right, leaves);
+        // Recursively remove leaves from left and right subtrees
+        node.left = removeLeaves(node.left, leaves);
+        node.right = removeLeaves(node.right, leaves);
+
+        return node; // Return the updated tree after leaf removal
     }
 
-    // Main method to test the leaf collection.
     public static void main(String[] args) {
-        BinaryTreeLeavesCollector collector = new BinaryTreeLeavesCollector();
+        BinaryTreeLeavesCollector solution = new BinaryTreeLeavesCollector();
 
-        // Construct the tree using the updated constructor.
-        TreeNode root = new TreeNode(1, 
-                                     new TreeNode(2, 
-                                                  new TreeNode(4, null, null), 
-                                                  new TreeNode(5, null, null)), 
-                                     new TreeNode(3, null, null));
+        // Example 1
+        TreeNode root1 = new TreeNode(1);
+        root1.left = new TreeNode(2);
+        root1.right = new TreeNode(3);
+        root1.left.left = new TreeNode(4);
+        root1.left.right = new TreeNode(5);
 
-        // Collect and print the leaves of the tree.
-        List<Integer> leaves = collector.collectLeaves(root);
-        System.out.println("Leaves of the binary tree: " + leaves);
+        System.out.println(solution.collectLeaves(root1)); // Expected Output: [[4,5,3],[2],[1]]
+
+        // Example 2
+        TreeNode root2 = new TreeNode(1);
+
+        System.out.println(solution.collectLeaves(root2)); // Expected Output: [[1]]
     }
 }
