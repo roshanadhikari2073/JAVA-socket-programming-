@@ -1,0 +1,18 @@
+Task:
+Write a function:
+
+java
+Copy code
+class Solution { public int solution(int[] A); }
+that, given an array A of N integers, returns the length of the longest consistent fragment of A in which all elements can be generated using at most two different digits. You must use the same digits for all elements.
+
+Examples:
+
+Given A = [23, 333, 33, 3, 0, 505], the function should return 4. Elements 333, 33, 3, and 0 can be generated using only digits 0 and 3.
+Given A = [615, 88, 498, 99, 9], the function should return 2. The last two elements can be generated using only digit 9.
+Given A = [123, 456], the function should return 0.
+Assume that:
+
+N is an integer within the range [1..100];
+each element of array A is an integer within the range [0..1,000,000,000].
+In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
