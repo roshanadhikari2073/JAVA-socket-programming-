@@ -2,15 +2,14 @@ import java.util.Arrays;
 
 public class LongestFragment {
     public static void main(String[] args) {
-        Solution solution = new Solution();
 
         // Test cases with expected outputs in comments
-        System.out.println("Test case [23, 333, 33, 30, 0, 505]: Expected output 4, Actual output " + LongestFragment.solution(new int[]{23, 333, 33, 30, 0, 505}));
-        System.out.println("Test case [615, 88, 498, 99, 9]: Expected output 2, Actual output " + LongestFragment.solution(new int[]{615, 88, 498, 99, 9}));
-        System.out.println("Test case [123, 456]: Expected output 0, Actual output " + LongestFragment.solution(new int[]{123, 456}));
+        System.out.println("Test case [23, 333, 33, 30, 0, 505]: Expected output 4, Actual output " + solution(new int[]{23, 333, 33, 30, 0, 505}));
+        System.out.println("Test case [615, 88, 498, 99, 9]: Expected output 2, Actual output " + solution(new int[]{615, 88, 498, 99, 9}));
+        System.out.println("Test case [123, 456]: Expected output 0, Actual output " + solution(new int[]{123, 456}));
     }
 
-    public int solution(int[] A) {
+    public static int solution(int[] A) {
         int maxLength = 0;
         
         for (int start = 0; start < A.length; start++) {
