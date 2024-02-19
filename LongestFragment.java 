@@ -1,10 +1,9 @@
 Task:
 Write a function:
 
-java
-Copy code
 class Solution { public int solution(int[] A); }
-that, given an array A of N integers, returns the length of the longest consistent fragment of A in which all elements can be generated using at most two different digits. You must use the same digits for all elements.
+that, given an array A of N integers, returns the length of the longest consistent fragment of A in
+which all elements can be generated using at most two different digits. You must use the same digits for all elements.
 
 Examples:
 
