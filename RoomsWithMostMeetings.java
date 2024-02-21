@@ -16,12 +16,8 @@ public class RoomsWithMostMeetings {
         for(int[] meeting: meetings) {
             while(!roomAvailable.isEmpty() && roomAvailable.peek()[1] <= meeting[0]){
                 int[] room = roomAvailable.poll();
-                if(meetingCounts[room[0]] > 1){
-                    room[1] = room[1]
-                } else {
-                    room[1] = meeting[1];
-                }
                 meetingCounts[room[0]]++;
+                room[1] += meeting[1];
             }
         }
 
