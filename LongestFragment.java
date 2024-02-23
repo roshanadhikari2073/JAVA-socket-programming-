@@ -31,7 +31,7 @@ public class LongestFragment {
                     currentLength++;
                     maxLength = Math.max(maxLength, currentLength);
                 } else {
-                    break; // Break the inner loop to start a new sequence from the next element
+                    break;
                 }
             }
         }
