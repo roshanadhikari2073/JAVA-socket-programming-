@@ -42,7 +42,6 @@ class Solution {
                 busyRooms.offer(new int[]{meeting[1], roomId});
             } else {
                 int[] busyRoom = busyRooms.poll();
-                assert busyRoom != null;
                 bookingCounts[busyRoom[1]]++;
                 // Extend the busy room's booking time
                 busyRoom[0] += meeting[1] - meeting[0];
