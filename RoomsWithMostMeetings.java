@@ -4,35 +4,51 @@ import java.util.PriorityQueue;
 
 public class RoomsWithMostMeetings {
 
-    public int RoomsWithMostMeetings(int n, int[][] meetings){
-        Arrays.sort(meetings, Comparator.comparingInt(a -> a[0])); // sort by start time
-        PriorityQueue<int[]> roomAvailable = new PriorityQueue<>(Comparator.comparingInt(a -> a[1])); // sort by end time
-        int[] meetingCounts = new int[n];
+    public int mostBooked(int n, int[][] meetings) {
+        // Sort meetings by their start time
+        Arrays.sort(meetings, (a, b) -> Integer.compare(a[0], b[0]));
 
-        for(int i = 0; i < n; i++){
-            roomAvailable.add(new int[]{i,0});
+        // Priority Queue for tracking idle room indices
+        PriorityQueue<Integer> idleRooms = new PriorityQueue<>();
+        for (int i = 0; i < n; i++) {
+            idleRooms.offer(i);
         }
 
-        for(int[] meeting: meetings) {
-            while(!roomAvailable.isEmpty() && roomAvailable.peek()[1] <= meeting[0]){
-                int[] room = roomAvailable.poll();
-                meetingCounts[room[0]]++;
-                room[1] += meeting[1];
+        // Priority Queue for tracking busy rooms by their availability time, then room index
+        PriorityQueue<int[]> busyRooms = new PriorityQueue<>((a, b) -> {
+            if (a[0] != b[0]) return a[0] - b[0];
+            return a[1] - b[1];
+        });
+
+        // Array to count bookings for each room
+        int[] bookingCounts = new int[n];
+
+        for (int[] meeting : meetings) {
+            // Free up rooms that have become available
+            while (!busyRooms.isEmpty() && busyRooms.peek()[0] <= meeting[0]) {
+                idleRooms.offer(busyRooms.poll()[1]);
+            }
+
+            if (!idleRooms.isEmpty()) {
+                int roomId = idleRooms.poll();
+                bookingCounts[roomId]++;
+                busyRooms.offer(new int[]{meeting[1], roomId});
+            } else {
+                int[] busyRoom = busyRooms.poll();
+                bookingCounts[busyRoom[1]]++;
+                // Extend the busy room's booking time
+                busyRoom[0] += meeting[1] - meeting[0];
+                busyRooms.offer(busyRoom);
             }
         }
 
-        int maxMeetings = 0, roomsWithMostMeetings = -1;
-
-        for( int i =0; i < n; i++){
-            if(meetingCounts[i] > maxMeetings){
-                maxMeetings = meetingCounts[i];
-                roomsWithMostMeetings = i;
+        // Determine the most booked room
+        int maxBooked = 0;
+        for (int i = 1; i < n; i++) {
+            if (bookingCounts[i] > bookingCounts[maxBooked]) {
+                maxBooked = i;
             }
         }
-
-
-
-        return roomsWithMostMeetings;
+        return maxBooked;
     }
-
 }
