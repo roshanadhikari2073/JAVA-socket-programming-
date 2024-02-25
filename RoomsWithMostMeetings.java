@@ -6,7 +6,7 @@ public class RoomsWithMostMeetings {
 
     public int mostBooked(int n, int[][] meetings) {
         // Sort meetings by their start time
-        Arrays.sort(meetings, (a, b) -> Integer.compare(a[0], b[0]));
+        Arrays.sort(meetings, Comparator.comparingInt(a -> a[0]));
 
         // Priority Queue for tracking idle room indices
         PriorityQueue<Integer> idleRooms = new PriorityQueue<>();
