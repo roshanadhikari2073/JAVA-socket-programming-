@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/contains-duplicate/
-class CheckDupicate {
+class ConrainsDuplicate {
     public boolean containsDuplicate(int[] nums) {
 
         HashSet<Integer> uniqueNums = new HashSet<>();

@@ -1,5 +1,4 @@
 // https://leetcode.com/problems/valid-anagram/description/
-// https://leetcode.com/problems/valid-anagram/submissions/1208816231/
 class ValidAnagram {
     public boolean isAnagram(String s, String t) {
 
